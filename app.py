@@ -1,7 +1,7 @@
 import streamlit as st
-
 from ui.home import show_home
 from ui.sidebar import create_sidebar
+from rag.pdf_loader import extract_text_from_pdf
 
 
 st.set_page_config(
@@ -32,3 +32,25 @@ if ask_button:
     st.write(user_settings)
 
     st.write(question)
+
+    uploaded_file = user_settings["uploaded_file"]
+
+    if uploaded_file is None:
+
+        st.warning("Please upload a PDF first.")
+
+    else:
+
+        text, pages = extract_text_from_pdf(uploaded_file)
+
+        st.success("PDF Loaded Successfully!")
+
+        st.write(f"Pages: {pages}")
+
+        st.write(f"Characters: {len(text)}")
+
+        st.text_area(
+            "Preview",
+            text[:2000],
+            height=300
+        )

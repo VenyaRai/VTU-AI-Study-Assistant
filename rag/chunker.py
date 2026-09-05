@@ -13,6 +13,8 @@ def split_into_chunks(text):
             "\n\n",
             "\n",
             ". ",
+            "? ",
+            "! ",
             " ",
             ""
         ]
